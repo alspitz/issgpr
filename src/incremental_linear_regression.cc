@@ -24,7 +24,7 @@ void IncrementalLinearRegression::init(int input_dims, int output_dims,
 Eigen::VectorXd IncrementalLinearRegression::predict(const Eigen::VectorXd& input) const {
   Eigen::VectorXd output;
   std::tie(output, std::ignore) = map_and_predict(input);
-  return std::move(output);
+  return output;
 }
 
 Eigen::MatrixXd IncrementalLinearRegression::get_deriv(const Eigen::VectorXd& input) const {
@@ -66,7 +66,7 @@ Eigen::VectorXd IncrementalLinearRegression::update(const Eigen::VectorXd& input
     w_[i] = A_.solve(b_[i]);
   }
 
-  return std::move(predicted);
+  return predicted;
 }
 
 std::pair<Eigen::VectorXd, Eigen::VectorXd> IncrementalLinearRegression::map_and_predict(const Eigen::VectorXd& input) const {
